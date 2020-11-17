@@ -1,0 +1,7 @@
+{"width":48,"height":48,
+    "colors":["#f6f6f6","#9d101c"],
+    "rows":[{
+        "index":0,
+        "pixels":[{"color":0,"count":48}]},{"index":1,"pixels":[{"color":0,"count":17},{"color":1,"count":1},{"color":0,"count":5},
+{"color":0,"count":5},{"color":1,"count":1},{"color":0,"count":5},{"color":1,"count":1},{"color":0,"count":18}]},{"index":46,"pixels":[{"color":0,"count":48}]},
+{"index":47,"pixels":[{"color":0,"count":48}]}]}

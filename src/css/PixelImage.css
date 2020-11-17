@@ -1,0 +1,178 @@
+#root {
+    overflow: auto;
+    width: 100%;
+    padding-bottom: 185px;
+  }
+  
+  #root div {
+    text-align: center;
+  }
+  
+  .motif-container {
+    overflow: auto;
+    width: 100%;
+  }
+  
+  .motif {
+    overflow: auto;
+    padding: 0px 0px 0px 0px ;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+  }
+  
+  .pixel-box {
+    width: 15px;
+    height: 15px;
+    background-color: #fafafa;
+    font-size: 10px;
+    text-align: center;
+    border-right: 0.01em solid red;
+    border-bottom: 0.01em solid red;
+    float: left;
+    margin-top:0px;
+    margin-bottom:0px;
+    vertical-align: middle;
+  }
+  .row, .row-end{
+    margin: 0;
+    padding: 0;
+    /*height: 15px;*/
+  }
+  .clearfix {
+    content: "";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+  }
+  .selected_row {
+    border-top: 2px solid green;
+    border-bottom: 2px solid green;
+    margin: 0 0 0px 0;
+    padding: 0;
+    /*height: 90px;*/
+  }
+  
+  .selected_row .pixel-box {
+      height: 60px;
+      line-height: 60px;
+  }
+  
+  .pixel-counter {
+      display: inline-block;
+      border: 0px solid black;
+    padding: 5px;
+    border-radius: 3px;
+  }
+  
+  .pixel-counter div {
+      padding: 3px 3px;
+      margin: 3px 4px;
+      background-color: #fff;
+      border: 0px solid #ddd;
+      line-height: 1.02857;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  
+  .pagination {
+      display: inline-block;
+      padding-left: 0;
+      margin: 18px 0;
+      border-radius: 0px;
+  }
+  
+  .pagination > li {
+      display: inline;
+  }
+  
+  .pagination > li:first-child > div, .pagination > li:first-child > span {
+      margin-left: 0;
+      border-bottom-left-radius: 0px;
+      border-top-left-radius: 0px;
+  }
+  .pagination > li > div, .pagination > li > span {
+      position: relative;
+      float: left;
+      padding: 6px 12px;
+      line-height: 1.42857;
+      text-decoration: none;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      margin-left: -1px;
+      color: #777;
+  }
+  .extensions-tabs {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+  }
+  .extensions-tabs button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+  }
+  /* Change background color of buttons on hover */
+  .extensions-tabs button:hover {
+      background-color: #ddd;
+  }
+  
+  /* Create an active/current tablink class */
+  .extensions-tabs button.active {
+      background-color: #ccc;
+  }
+  
+  .extensions-box {
+    margin-bottom: 300px;
+    background-color: #fff;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-top: none;
+      margin-bottom: 20px;
+      text-align: left;
+  }
+  
+  .tabcontent.active {
+      display: block;
+  }
+  
+  .embed-tab {
+      margin: 0px;
+      border: 0px solid #aaa;
+      padding: 10px;
+      min-height: 101px;
+  }
+  
+  .playcolor {
+      margin: 0px;
+      border: 0px solid #aaa;
+      padding: 10px;
+      min-height: 75px;
+  }
+  .cover, .colorpick-button {
+    background: rgb(34, 34, 34);
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    float: left;
+    border-radius: 4px;
+      margin: 0px 6px 6px 0px;
+  }
+  
+  div .MuiAppBar-root {
+    background-color: #f1f1f1;
+    color: #121212;
+  }
+  
