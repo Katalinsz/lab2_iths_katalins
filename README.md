@@ -16,9 +16,6 @@ Tests are not written.
 The colors are listed a bit strangely.
 Recoloring works, but you need to click next to the pickcolor popup to get back to the site. 
 
-Best regards, 
-Katalin Szasz
-
 
 # Getting Started with Create React App
 
