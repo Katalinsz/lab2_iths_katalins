@@ -1,23 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Motif from './components/Motif';
 import MotifList from './components/MotifList';
-import { MotifListContext } from './motifList-context';
 import "./css/App.css"; 
 import {Container, Row, Col} from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
-
-
-import ContentContainer from "./components/ContentContainer";
 import Header from "./components/Header";
 import TopBar from "./components/TopBar";
 import Theme from "./components/Theme";
 import { ThemeStore } from "./contexts/ThemeStore";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-import {
-  BrowserRouter as Router,
-  useLocation
-} from "react-router-dom";
 import axios from 'axios';
 import {
   useQuery,
@@ -25,9 +17,9 @@ import {
 
 const motifs = [
   {"name":"Snoflake", "url": "https://motif.knittedforyou.com/img/Motif/1123", "json": "https://motif.knittedforyou.com/download/download_json.php?f=1123", "tags":["animal", "bird", "child"]},
-  {"name":"Snoman",  "url": "https://motif.knittedforyou.com/img/Motif/1124", "tags":["animal", "bird", "child"]},
-  {"name":"Bird", "url": "https://motif.knittedforyou.com/img/Motif/1125", "tags":["animal", "bird", "child"]},
-  {"name":"Cat", "url": "https://motif.knittedforyou.com/img/Motif/1104", "tags":["animal", "bird", "child"]},
+  {"name":"Snoman",  "url": "https://motif.knittedforyou.com/img/Motif/1124", "json": "https://motif.knittedforyou.com/download/download_json.php?f=1124", "tags":["animal", "bird", "child"]},
+  {"name":"Bird", "url": "https://motif.knittedforyou.com/img/Motif/1125", "json": "https://motif.knittedforyou.com/download/download_json.php?f=1125", "tags":["animal", "bird", "child"]},
+  {"name":"Cat", "url": "https://motif.knittedforyou.com/img/Motif/1104", "json": "https://motif.knittedforyou.com/download/download_json.php?f=1104", "tags":["animal", "bird", "child"]},
 ]
 
 
@@ -54,7 +46,7 @@ function MotifQuery(props) {
     //const [selectedMotif, setSelectedMotif] = useState({"id": 600, "json": {}});
     //const motifJSON = useMotif(props.selectedMotif); 
     
-    let motifJSON = require('../../../workspace/motifKfY/img/Motif/'+props.selectedMotif+'.json');
+    let motifJSON = require('./input/'+props.selectedMotif+'.json');
     
     /*setSelectedMotif(prevState => ({
       ...prevState, 
@@ -76,7 +68,7 @@ function App() {
       setSelectedMotif(item);
     }; 
 
-    React.useEffect(() => {
+    useEffect(() => {
       const loadMotif = async () => {
         const motifJSON_ = await getMotif(selectedMotif);
         setMotif(motifJSON_);
