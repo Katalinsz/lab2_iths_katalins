@@ -116,7 +116,6 @@ class Motif extends React.Component {
 	}
 
 	handleColorChange(color, ind) {
-		console.log("handle color Change in Motif")
 		const colors = this.state.colors;
 		colors[ind] = color;
 
@@ -129,10 +128,12 @@ class Motif extends React.Component {
 	}
 
 	render() {
+		if (!this.state.current.colors) {
+			return null;
+		}
 		let input = this.state.current;
 		const colors = this.state.colors;
 		let width = (input.width + 2) * 16 + 40;
-		console.log("width: ", width)
 		return (
 			<div>
 			<div className="motif-container">

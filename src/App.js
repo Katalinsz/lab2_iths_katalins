@@ -1,67 +1,126 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Motif from './components/Motif';
-import MotifList, { SelectedMotifContext } from './components/MotifList';
+import MotifList from './components/MotifList';
+import { MotifListContext } from './motifList-context';
+import "./css/App.css"; 
+import {Container, Row, Col} from 'react-bootstrap';
+import Alert from 'react-bootstrap/Alert';
+
+
+import ContentContainer from "./components/ContentContainer";
+import Header from "./components/Header";
+import TopBar from "./components/TopBar";
+import Theme from "./components/Theme";
+import { ThemeStore } from "./contexts/ThemeStore";
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 import {
   BrowserRouter as Router,
   useLocation
 } from "react-router-dom";
 import axios from 'axios';
-
+import {
+  useQuery,
+ } from "react-query";
 
 const motifs = [
-  {"name":"Snoflake", "url": "https://motif.knittedforyou.com/download/download_json.php?f=1123", "tags":["animal", "bird", "child"]},
+  {"name":"Snoflake", "url": "https://motif.knittedforyou.com/img/Motif/1123", "json": "https://motif.knittedforyou.com/download/download_json.php?f=1123", "tags":["animal", "bird", "child"]},
   {"name":"Snoman",  "url": "https://motif.knittedforyou.com/img/Motif/1124", "tags":["animal", "bird", "child"]},
   {"name":"Bird", "url": "https://motif.knittedforyou.com/img/Motif/1125", "tags":["animal", "bird", "child"]},
-  {"name":"Tetris", "url": "https://motif.knittedforyou.com/img/Motif/1126", "tags":["animal", "bird", "child"]},
-  {"name":"City", "url": "https://motif.knittedforyou.com/img/Motif/1127", "tags":["animal", "bird", "child"]},
+  {"name":"Cat", "url": "https://motif.knittedforyou.com/img/Motif/1104", "tags":["animal", "bird", "child"]},
 ]
 
 
 // A custom hook that builds on useLocation to parse
 // the query string for you.
-function useQuery() {
+/*function useQuery() {
   return new URLSearchParams(useLocation().search);
+}*/
+
+const getMotif = async (key, id) => {
+  const data = await axios.get(`https://motif.knittedforyou.com/download/download_json.php?f=${id}`);
+  return await data; 
 }
 
-function MotifQuery() {
-  const [appState, setAppState] = useState({
-    loading: false,
-    repos: null,
-    selectedMotif: 0, 
-    motifJSON: {},
-  });
+function useMotif(postId) {
+    //const [motifJSON, setMotifJSON] = useState(null);
+    return useQuery(["post", postId], getMotif, {
+      f: postId,
+    });
+}
 
   
-   
-   
-    /*fetch (motifJSONurl, { mode: 'no-cors'})
-      .then((response) => response.json())
-      .then((motifJSON) => {
-        setAppState({ loading: false, motifJSON: motifJSON});
-        console.log('This is your data', motifJSON); 
-      })
-      .catch(e => {
-        console.log("fetch failed on motif, ", motifJSONurl, e);
-        return e;
-      });
-  }, [setAppState]);   
-  */
-//let motif = require();
-  return (
-    <Motif input={appState.motifJSON}></Motif>
-  )
+function MotifQuery(props) {
+    //const [selectedMotif, setSelectedMotif] = useState({"id": 600, "json": {}});
+    //const motifJSON = useMotif(props.selectedMotif); 
+    
+    let motifJSON = require('../../../workspace/motifKfY/img/Motif/'+props.selectedMotif+'.json');
+    
+    /*setSelectedMotif(prevState => ({
+      ...prevState, 
+      json: motifJSON
+    }));*/
+
+    return (
+        <Motif input={motifJSON} ></Motif>
+    )
 }
 
 function App() {
+    //const {selectedMotif, onMotifClick1} = useContext(MotifListContext);
+    const [selectedMotif, setSelectedMotif] = useState(1123);
+    const [motifJSON, setMotif] = useState(selectedMotif);
+
+
+    const onMotifClick = (item) => {
+      setSelectedMotif(item);
+    }; 
+
+    React.useEffect(() => {
+      const loadMotif = async () => {
+        const motifJSON_ = await getMotif(selectedMotif);
+        setMotif(motifJSON_);
+      };
+   
+      loadMotif();
+    }, []);
 
   return (
-    <Router>
-      <SelectedMotifContext.Provider value="0">
-        <MotifList motifs={motifs}></MotifList>
-        <MotifQuery>
-        </MotifQuery>
-      </SelectedMotifContext.Provider>  
-    </Router>
+   <ThemeStore>
+      <Theme>
+          <Container fluid>
+            <Row><Col>
+              <TopBar />
+            </Col></Row>
+            <Row><Col>
+          
+                <Header> </Header>
+             </Col></Row>
+                  
+              <Row><Col>
+                  <MotifList motifs={motifs} onClick={onMotifClick}></MotifList>
+                </Col></Row>
+                <Row><Col>
+                </Col></Row>
+          </Container>
+        </Theme>
+        <Container fluid>
+              <Row>
+                <Col>
+                  <Alert variant="success">
+                    <Alert.Heading> <hr/>Follow the interactive knitting chart bellow <hr/></Alert.Heading>
+                  </Alert>
+                </Col>
+              </Row>
+              <Row><Col>
+                  <MotifQuery selectedMotif={selectedMotif}>
+                  </MotifQuery>
+                 </Col>
+              </Row>
+          </Container>
+
+  </ThemeStore>
+  
   )
 }
 

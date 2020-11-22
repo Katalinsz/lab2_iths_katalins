@@ -1,8 +1,8 @@
-import React from 'react'; 
-import styled from 'styled-components'
-
-let globalSelectedMotif = 0; 
-export const SelectedMotifContext = React.createContext(globalSelectedMotif);
+import React, {useState} from 'react'; 
+import styled from 'styled-components';
+import {MotifListContext} from '../motifList-context';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 const MotifBox = styled.div`
   margin: 10px;
@@ -14,32 +14,48 @@ const MotifBox = styled.div`
 `
 
 function MotifListItem(props) {
-    console.log("Motif.props", props);
-
+    const [selectedMotif, setSelectedMotif] = useState();
+   
+    
     const onMotifClick = (item) => {
-      console.log("clicked", item); 
-      //setImageSelected(item);
+      setSelectedMotif(prevState => ({
+        ...prevState, 
+        id: 1103
+      }));
     };
 
     return (
-      <MotifBox onClick={onMotifClick}>
-          <img src={props.motif.url + ".png"} className="motif-image" alt="motifimage" />
-          <label>{props.motif.name}</label>
-      </MotifBox>
+          <MotifBox onClick={onMotifClick}>
+          <Card style={{ width: '18rem' }}>
+            <Card.Img variant="top" src={props.motif.url + ".png"} />
+            <Card.Body>
+              <Card.Title> {props.motif.name} </Card.Title>
+              <Card.Text>
+                {props.motif.description}
+              </Card.Text>
+              <Button variant="primary">Knit with Line by line</Button>
+            </Card.Body>
+          </Card>
+             
+          </MotifBox>
     )
 }
   
+const MotifListContainer = styled.div`
+  color: ${(props) => props.theme.title};
+  width: 100%;
+`;
+
 export default function MotifList(props) {
-    console.log(props); 
     return (
-      <div className="motif-container">
+      <MotifListContainer>
         {props.motifs.map((motifData, key) =>
           <MotifListItem
             key={key}
-              motif={motifData}
+            motif={motifData}
           />
         )}
-      </div>
+      </MotifListContainer>
     )  
 }
   
