@@ -1,3 +1,22 @@
+# With this project I wanted  to list some motifs from my server and make them available for "knitting" with a Line by line tool.
+
+So far I list 4 predefined motifs. 
+An interactive motif chart is visible, the stitches are calculated by colors. User can click on the rows in the chart, and the rows than will be highlighted. 
+User can clik on the colors below the chart and the chart will be recolored. 
+
+User can choose if they want a white background with green text or a dark background with blue text. 
+
+I realize in afterhand that I wanted a too complicated project in very limited time. It took to much time for me to try to get the axious or fetch from server work. It works by now, even if it is not visible :), the data is finaly fetched, just waiting for the result and the relation with useEffect and state rerenders to many times for me. I had to give up in brist of time. 
+
+So I am sorry, I have some issues, that I could not resolve yet:
+User cannot click on the cards. 
+Motifs are not loaded from the server, just listed statically. 
+Motif content is not loaded from the server, just required from the fileSystem.
+Tests are not written. 
+The colors are listed a bit strangely.
+Recoloring works, but you need to click next to the pickcolor popup to get back to the site. 
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
