@@ -43,39 +43,37 @@ function useMotif(postId) {
 
   
 function MotifQuery(props) {
-    //const [selectedMotif, setSelectedMotif] = useState({"id": 600, "json": {}});
-    //const motifJSON = useMotif(props.selectedMotif); 
     
-    let motifJSON = require('./input/'+props.selectedMotif+'.json');
-    
-    /*setSelectedMotif(prevState => ({
-      ...prevState, 
-      json: motifJSON
-    }));*/
+    const [selectedMotif, setSelectedMotif] = useState(); //{"width": 0, "height": 0, "colors": [], "rows": [{"pixels": []}]});
+
+    async function fetchMotifData(id) {
+      const response = await fetch("https://motif.knittedforyou.com/img/Motif/"+ id + ".json");   //download/download_json.php?f=" + id);
+      console.log("response from fetch", response); 
+      //let motifJSON = await response;
+      let motifJSON = require('./input/'+id+'.json');
+   //   console.log("after await: ", motifJSON);
+      setSelectedMotif(motifJSON);
+    }
+  
+    useEffect(() => {
+      fetchMotifData(props.selectedMotifId);
+    }, [props.selectedMotifId]);
+  
+    if (!selectedMotif) {
+      return (<div> loading...</div>);
+    } 
 
     return (
-        <Motif input={motifJSON} ></Motif>
+        <Motif input={selectedMotif} ></Motif>
     )
 }
 
 function App() {
     //const {selectedMotif, onMotifClick1} = useContext(MotifListContext);
-    const [selectedMotif, setSelectedMotif] = useState(1123);
-    const [motifJSON, setMotif] = useState(selectedMotif);
-
-
+    
     const onMotifClick = (item) => {
-      setSelectedMotif(item);
+     // setSelectedMotif(item);
     }; 
-
-    useEffect(() => {
-      const loadMotif = async () => {
-        const motifJSON_ = await getMotif(selectedMotif);
-        setMotif(motifJSON_);
-      };
-   
-      loadMotif();
-    }, []);
 
   return (
    <ThemeStore>
@@ -105,7 +103,7 @@ function App() {
                 </Col>
               </Row>
               <Row><Col>
-                  <MotifQuery selectedMotif={selectedMotif}>
+                  <MotifQuery selectedMotifId={1104}>
                   </MotifQuery>
                  </Col>
               </Row>

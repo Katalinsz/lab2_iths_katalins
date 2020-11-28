@@ -128,10 +128,12 @@ class Motif extends React.Component {
 	}
 
 	render() {
-		if (!this.state.current.colors) {
-			return null;
-		}
 		let input = this.state.current;
+		if (!input.width || input.width == 0) {
+			input.rows = [];
+			input.rows[this.state.selectedIndex] = {"pixels": []};
+			return (<div>No motif to load</div>);  
+		}	
 		const colors = this.state.colors;
 		let width = (input.width + 2) * 16 + 40;
 		return (

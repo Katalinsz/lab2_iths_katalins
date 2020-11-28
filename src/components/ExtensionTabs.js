@@ -152,7 +152,7 @@ class ExtentionTabs extends React.Component {
 
             <PlayColor
   						width={this.state.playColorWidth}
-  						color={this.props.colors[0]}
+  						color="#fafafa"
   				  >
   					{this.props.colors.map((color, k) =>
   						<ButtonPicker

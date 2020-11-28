@@ -1,52 +1,47 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect'
-import App from './App';
-import Topbar from './components/TopBar'; 
+import React from "react";
+import { render, unmountComponentAtNode } from "react-dom";
+import { act } from "react-dom/test-utils";
 
+import App from "./App";
+import Header from "./components/Header";
+import MotifList from './components/MotifList';
 
-test('renders 4 Cards', () => {
-  const buttons = screen.getByText(/Knit with Line by line/i);
-  expect(buttons).toBeInTheDocument();
+const motifs = [
+  {"name":"Snoflake", "url": "https://motif.knittedforyou.com/img/Motif/1123", "json": "https://motif.knittedforyou.com/download/download_json.php?f=1123", "tags":["animal", "bird", "child"]},
+  {"name":"Snoman",  "url": "https://motif.knittedforyou.com/img/Motif/1124", "json": "https://motif.knittedforyou.com/download/download_json.php?f=1124", "tags":["animal", "bird", "child"]},
+  {"name":"Bird", "url": "https://motif.knittedforyou.com/img/Motif/1125", "json": "https://motif.knittedforyou.com/download/download_json.php?f=1125", "tags":["animal", "bird", "child"]},
+  {"name":"Cat", "url": "https://motif.knittedforyou.com/img/Motif/1104", "json": "https://motif.knittedforyou.com/download/download_json.php?f=1104", "tags":["animal", "bird", "child"]},
+]
+
+let container = null;
+beforeEach(() => {
+  // setup a DOM element as a render target
+  container = document.createElement("div");
+  document.body.appendChild(container);
 });
 
-test('renders a message', () => {
-  const { container, getByText } = render(<App />)
-  expect(getByText('Grid')).toBeInTheDocument()
-  expect(container.firstChild).toMatchInlineSnapshot(`
-    <h1>Hello, World!</h1>
-  `)
-  
-})
-
-test('renders learn react link', () => {
-  const app = render(<App />);
-  expect(app.getByText('/knit/')).toBeInTheDocument();
-  
+afterEach(() => {
+  // cleanup on exiting
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
 });
 
-describe('App', () => {
-  test('renders App component', () => {
-    render(<App />);
- 
-   
+it("renders Header", () => {
+  act(() => {
+    render(<Header />, container);
   });
+  expect(container.textContent).toContain("Let's knit these motifs together");
 });
 
-describe('true is truthy and false is falsy', () => {
-  test('true is truthy', () => {
-    expect(true).toBe(true);
+it("renders MotifList", () => {
+  act(() => {
+    render(<MotifList motifs={[]} />, container);
   });
- 
-  test('false is falsy', () => {
-    expect(false).toBe(false);
-  });
-});
+  expect(container.textContent).toBe("");
 
-describe('App', () => {
-  test('renders App component', () => {
-    render(<App />);
- 
-    expect(screen.getByRole('button')).toBeInTheDocument();
+  act(() => {
+    render(<MotifList motifs={motifs} />, container);
   });
+  expect(container.innerHTML).toContain("Knit with Line by line");
 });

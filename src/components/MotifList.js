@@ -1,6 +1,5 @@
 import React, {useState} from 'react'; 
 import styled from 'styled-components';
-import {MotifListContext} from '../motifList-context';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
@@ -47,9 +46,12 @@ const MotifListContainer = styled.div`
 `;
 
 export default function MotifList(props) {
+    let motifs = props.motifs ? props.motif : [];
+    motifs = props.motifs; 
+    
     return (
       <MotifListContainer>
-        {props.motifs.map((motifData, key) =>
+        {motifs.map((motifData, key) =>
           <MotifListItem
             key={key}
             motif={motifData}
